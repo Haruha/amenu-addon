@@ -1,4 +1,5 @@
 ------------------ Categories
+/*
 local PANEL = {}
 
 function PANEL:Init()
@@ -53,8 +54,6 @@ end
 
 vgui.Register("aMenuCategory", PANEL, "DPanel")
 
---bork'd collapsible categories
---[[
 ------------------ Categories
 local PANEL = {}
 
@@ -138,14 +137,18 @@ function PANEL:Toggle()
 	self:InvalidateLayout()
 end
 
-vgui.Register("aMenuCategory", PANEL, "DPanel")--]]
---[[
+vgui.Register("aMenuCategory", PANEL, "DPanel")
+*/
+
+
+
 local PANEL = {}
 
 function PANEL:Init()
 	self.Name 		= ""
 	self.Children 	= {}
 	self.Col 		= aMenu.Color
+	self.Open = true
 
 	self:Dock(TOP)
 
@@ -156,7 +159,12 @@ function PANEL:Init()
 	self.Button:SetTall(40)
 	self.Button.DoClick = function() self:Toggle() end
 	self.Button:SetText("")
-	--self.Button.Paint = function(this, w, h) end
+	self.Button.Paint = function(this, w, h) 
+		draw.RoundedBox(4, 5, 5, self:GetParent():GetWide()-7, h-5, Color(31, 31, 31, 255))
+		draw.SimpleText(self.Name, "aMenuTitle", 10, 5, Color(200, 200, 200), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+
+		draw.RoundedBox(2, 10, 37, self:GetParent():GetWide()-20, 2, self.Col)
+	end
 end
 
 function PANEL:Paint(w, h)
@@ -203,7 +211,7 @@ end
 
 function PANEL:Toggle()
 	if self.Open then
-		self:SizeTo(self:GetWide(), 40, 0.3, 0)
+		self:SizeTo(self:GetWide(), 44, 0.3, 0)
 		self.Open = false
 	else
 		self:SizeTo(self:GetWide(), self.Tall + 75, 0.3, 0)
@@ -212,9 +220,11 @@ function PANEL:Toggle()
 	--self:InvalidateLayout()
 end
 
---function PANEL:PerformLayout()
+function PANEL:Paint(w, h)
+	draw.RoundedBox(4, 5, 5, self:GetParent():GetWide()-7, h-5, Color(31, 31, 31, 255))
+	draw.SimpleText(self.Name, "aMenuTitle", 10, 5, Color(200, 200, 200), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
 
---end
+	draw.RoundedBox(2, 10, 37, self:GetParent():GetWide()-20, 2, self.Col)
+end
 
 vgui.Register("aMenuCategory", PANEL, "DPanel")
---]]

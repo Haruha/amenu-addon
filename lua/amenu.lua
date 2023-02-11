@@ -177,25 +177,26 @@ hook.Add("InitPostEntity", "aMenuInit", function()
 	aMenu.Base = nil
 
 	function DarkRP.openF4Menu()
-		if aMenu.Base then
-			aMenu.Base:Remove()
-			aMenu.Base = nil
-		end
-		aMenu.Base = vgui.Create("aMenuBase")
+		aMenu.Base:Show()
+		aMenu.Base.visible = true
 	end
 
 	function DarkRP.closeF4Menu()
 		if aMenu.Base then
-			aMenu.Base:Remove()
-			aMenu.Base = nil
+			aMenu.Base:Hide()
+			aMenu.Base.visible = false
 		end
 	end
 
 	function DarkRP.toggleF4Menu()
-		if aMenu.Base == nil then
-			DarkRP.openF4Menu()
-		else
+		if not aMenu.Base then
+			aMenu.Base = vgui.Create("aMenuBase")
+		end
+
+		if (aMenu.Base:isVisible()) then
 			DarkRP.closeF4Menu()
+		else
+			DarkRP.openF4Menu()
 		end
 	end
 

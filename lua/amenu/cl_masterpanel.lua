@@ -5,6 +5,7 @@ function PANEL:Init()
 	self:SetSize(ScrW()*0.8, ScrH()*0.8)
 	self:Center()
 	self:MakePopup()
+	self.visible = true
 	self.Col = aMenu.Color
 	self.Tabs = {}
 	self.StartTime = SysTime()
@@ -138,7 +139,6 @@ function PANEL:Init()
 end
 
 function PANEL:AddCat(name, icon, panel)
-
 	if not aMenu.AllowedTabs[name] or aMenu.AllowedTabs[name] == false then
 		panel:Remove()
 		self.Tab = 1
@@ -209,6 +209,10 @@ function PANEL:Paint(w, h)
 	if aMenu.BlurBackground then
 		Derma_DrawBackgroundBlur(self, self.StartTime)
 	end	
+end
+
+function PANEL:isVisible() 
+	return self.visible
 end
 
 vgui.Register("aMenuBase", PANEL, "EditablePanel")
