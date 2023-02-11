@@ -1,0 +1,8 @@
+"AddonInfo"
+{
+	"name"		"aMenu"
+	"info"		""
+	"version"	"{{ script_version_name }}"
+	"up_date"	"2016.07.20"
+	"author_name"	"arie"
+}
